@@ -1,0 +1,10 @@
+DEPENDENCIES
+  cocoon
+    path: chef/cookbooks/cocoon
+  ssh_known_hosts
+
+GRAPH
+  cocoon (0.1.1)
+  partial_search (1.0.8)
+  ssh_known_hosts (2.0.0)
+    partial_search (>= 0.0.0)
