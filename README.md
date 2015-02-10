@@ -123,19 +123,25 @@ Now that you have the key copied, it's time to add it to GitHub:
 
 Open up your Git Bash and type:
 
+```bash
 ssh -T git@github.com
 # Attempts to ssh to GitHub
+```
 
 You may see this warning:
 
+```bash
 # The authenticity of host 'github.com (207.97.227.239)' can't be established.
 # RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
 # Are you sure you want to continue connecting (yes/no)?
+```
 
 Don't worry! This is supposed to happen. Verify that the fingerprint in your terminal matches the one we've provided up above, and then type "yes."
 
+```bash
 # Hi username! You've successfully authenticated, but GitHub does not
 # provide shell access.
+```
 
 If that username is yours, you've successfully set up your SSH key! Don't worry about the "shell access" thing, you don't want that anyway.
 
