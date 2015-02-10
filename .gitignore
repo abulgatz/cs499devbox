@@ -1,4 +1,5 @@
 .DS_Store
 **/.vagrant/*
 **/.kitchen/*
-code/**
+/code/*
+!/code/README.md
