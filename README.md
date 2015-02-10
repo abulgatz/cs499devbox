@@ -1,8 +1,12 @@
-# Windows Rails, Git, Vagrant
+# Windows Rails, Git, Vagrant, on Windows
+
+## Install VirtualBox
+
+Install [VirtualBox](https://www.virtualbox.org/)
 
 ## Install Vagrant
 
-Install Vagrant from [vagrantup.com](http://vagrantup.com)
+Install [Vagrant](http://vagrantup.com)
 
 Vagrant (ruby really) does't like home directories with spaces. To be safe (and consistent), we're going to move our Vagrant home directory to `C:\HashiCorp\Vagrant\home`
 
@@ -18,7 +22,7 @@ NOTE: This adds to the User Environment, if you want to add to the system/machin
 
 -->
 
-## Install chefdk
+## Install the Chef Development Kit
 
 <!--
 If you have a mac, first install homebrew, then
@@ -27,9 +31,9 @@ If you have a mac, first install homebrew, then
     $ brew cask install chefdk
 -->
 
-Download from [https://downloads.chef.io/chef-dk/](https://downloads.chef.io/chef-dk/)
+Install the [Chef Development Kit](https://downloads.chef.io/chef-dk/)
 
-Add to path
+Add binaries to PATH, see: [The ChefDK on Windows Survival Guide](https://www.chef.io/blog/2014/11/04/the-chefdk-on-windows-survival-guide/)
 
 ## Install Vagrant plugins
 
@@ -38,11 +42,13 @@ $ vagrant plugin install vagrant-berkshelf
 $ vagrant plugin install vagrant-omnibus
 ```
 
-## Configure Git on Windows in Git Bash
+## Configure Git on Windows
 
 Install [Git for Windows](http://git-scm.com/download/win)
 
-First, we need to check for existing SSH keys on your computer. Open up your Git Bash and type:
+### Step 1: Check for SSH keys
+
+Open up your Git Bash and check for existing SSH keys on your computer
 
 ```bash
 $ ls -al ~/.ssh
@@ -57,6 +63,8 @@ Check the directory listing to see if you already have a public SSH key. The def
 * id_rsa.pub
 
 If not, then you will generate a new one. To generate a new SSH key, copy and paste the text below, making sure to substitute in your email address. The default settings are preferred, so when you're prompted to "Enter a file in which to save the key", just press Enter to continue.
+
+### Step 2: Generate a new SSH key
 
 ```bash	
 $ ssh-keygen -t rsa -C "your_email@example.com"
@@ -90,9 +98,50 @@ $ ssh-add -l
 # (Optional:) Test that your key is unlocked in the agent.
 ```
 
-Add both keys to pageant
+### Step 3: Add your SSH key to your account
 
-## Download respository
+Run the following command to copy the key to your clipboard.
+
+```bash
+clip < ~/.ssh/id_rsa.pub
+# Copies the contents of the id_rsa.pub file to your clipboard
+```
+
+Alternatively, using your favorite text editor, you can open the public key file and copy the contents of the file manually.
+
+Now that you have the key copied, it's time to add it to GitHub:
+
+1. In the top right corner of any page, click the gear icon
+2. In the user settings sidebar, click SSH keys.
+3. Click Add SSH key.
+4. In the Title field, add a descriptive label for the new key. For example, if you're using a personal Mac, you might call this key "Personal MacBook Air".
+5. Paste your key into the "Key" field.
+6. Click Add key.
+7. Confirm the action by entering your GitHub password.
+
+### Step 4: Test everything out
+
+Open up your Git Bash and type:
+
+ssh -T git@github.com
+# Attempts to ssh to GitHub
+
+You may see this warning:
+
+# The authenticity of host 'github.com (207.97.227.239)' can't be established.
+# RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+# Are you sure you want to continue connecting (yes/no)?
+
+Don't worry! This is supposed to happen. Verify that the fingerprint in your terminal matches the one we've provided up above, and then type "yes."
+
+# Hi username! You've successfully authenticated, but GitHub does not
+# provide shell access.
+
+If that username is yours, you've successfully set up your SSH key! Don't worry about the "shell access" thing, you don't want that anyway.
+
+If you receive a message about "access denied," you can [read these instructions for diagnosing the issue](https://help.github.com/articles/error-permission-denied-publickey).
+
+## Download devbox respository
 
 ```bash
 $ git clone git@github.com:abulgatz/cs499devbox.git
@@ -105,7 +154,7 @@ $ cd cs499devbox
 $ vagrant up
 ```
 
-## Configure SSH
+## Configure SSH keys
 
 Your ssh keys are in openssh format, which PuTTY, the Windows SSH client that we will be using, can't read.
 
@@ -119,9 +168,3 @@ Convert ~/.vagrant.d/ to
 ## Start Rails Server
 
 rails s -b 0.0.0.0
-
-pageant
-puttygen
-putty
-
-ssh -T git@github.com
