@@ -1,83 +1,127 @@
-# Cocoon
+# Windows Rails, Git, Vagrant
 
-Like a warm blanket cocoon is a Rails development Vagrant box to wrap your
-Rails application in a repeatable environment. No more, "It works on my
-machine."
+## Install Vagrant
 
-## Getting Started
+Install Vagrant from [vagrantup.com](http://vagrantup.com)
 
-1. Install [Vagrant](https://www.vagrantup.com) and
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+Vagrant (ruby really) does't like home directories with spaces. To be safe (and consistent), we're going to move our Vagrant home directory to `C:\HashiCorp\Vagrant\home`
 
-1. Install the Vagrant Omnibus plugin.
+First, create a "home" folder in `C:\HashiCorp\Vagrant`, then in a command prompt run:
 
-    ```bash
-    $ vagrant plugin install vagrant-omnibus
-    ```
-1. Clone this repo and cd into the directory
+	$ setx VAGRANT_HOME "C:\HashiCorp\Vagrant\home"
 
-    ```bash
-    $ git clone git@github.com:gofullstack/cocoon.git
-    $ cd cocoon
-    ```
+<!--
 
-1. Startup and provision Vagrant, you'll be promped for your local password.
-The rest of this process may take a bit of time the first run, go grab a
-:cookie: and come back.
+NOTE: This adds to the User Environment, if you want to add to the system/machine you need to add the /M option at the end of the command in an elevated command prompt, for example:
 
-    ```bash
-    $ vagrant up
-    ```
+	$ setx VAGRANT_HOME "C:\HashiCorp\Vagrant\home" /M
 
-    If you get an error about DHCP server config
+-->
 
-    ```
-    There was an error while executing `VBoxManage`, a CLI used by Vagrant
-    for controlling VirtualBox. The command and stderr is shown below.
+## Install chefdk
 
-    Command: ["dhcpserver", "add", "--ifname", "vboxnet0", "--ip", "172.28.128.2", "--netmask", "255.255.255.0", "--lowerip", "172.28.128.3", "--upperip", "172.28.128.254", "--enable"]
+<!--
+If you have a mac, first install homebrew, then
 
-    Stderr: VBoxManage: error: DHCP server already exists
-    ```
+    $ brew install caskroom/cask/brew-cask
+    $ brew cask install chefdk
+-->
 
-   Then run the following command and then vagrant up again (see https://github.com/mitchellh/vagrant/issues/3083 for details)
+Download from [https://downloads.chef.io/chef-dk/](https://downloads.chef.io/chef-dk/)
 
-   ```bash
-   $ VBoxManage dhcpserver remove --netname HostInterfaceNetworking-vboxnet0
-   $ vagrant up
-   ```
+Add to path
 
-1. SSH into Vagrant box.
+## Install Vagrant plugins
 
-    ```bash
-    $ vagrant ssh
-    ```
+```bash
+$ vagrant plugin install vagrant-berkshelf
+$ vagrant plugin install vagrant-omnibus
+```
 
-1. cd into the code directory and start a new Rails project.
+## Configure Git on Windows in Git Bash
 
-    ```bash
-    $ cd code
-    $ rails new awesomesauce
-    ```
+Install [Git for Windows](http://git-scm.com/download/win)
 
-    or to use this as a wrapper for an existing project checkout your existing project
+First, we need to check for existing SSH keys on your computer. Open up your Git Bash and type:
 
-    ```bash
-    $ cd code
-    $ git clone git@github.com:your/project.git
-    ```
+```bash
+$ ls -al ~/.ssh
+# Lists the files in your .ssh directory, if they exist
+```
 
-1. Go about your regular Rails development business. Anything in the code
-directory will be synced locally to the code directory in cocoon.
+Check the directory listing to see if you already have a public SSH key. The default public key file names are:
 
-## Testing
+* id_dsa.pub
+* id_ecdsa.pub
+* id_ed25519.pub
+* id_rsa.pub
 
-Cocoon uses Test Kitchen and Rubocop to ensure the chef recipe is in tip
-top shape. To run Test Kitchen change into the cocoon cookbook directory
-located at `chef/cookbooks/cocoon` and run `kitchen test`. For Rubocop run
-`rubocop`.
+If not, then you will generate a new one. To generate a new SSH key, copy and paste the text below, making sure to substitute in your email address. The default settings are preferred, so when you're prompted to "Enter a file in which to save the key", just press Enter to continue.
 
-## Contributing
+```bash	
+$ ssh-keygen -t rsa -C "your_email@example.com"
+# Creates a new ssh key, using the provided email as a label
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]
+Enter passphrase (empty for no passphrase): [Type a passphrase]
+Enter same passphrase again: [Type passphrase again]
+```
 
-If you're interested in contributing to Cocoon, go for it! Just branch
-from master to a feature branch, make your change and open a pull request.
+Which should give you something like this:
+
+```bash
+Your identification has been saved in /c/Users/you/.ssh/id_rsa.
+Your public key has been saved in /c/Users/you/.ssh/id_rsa.pub.
+The key fingerprint is:
+01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com
+```
+
+Then add your new key to the ssh-agent:
+
+```bash
+$ eval $(ssh-agent)
+# Start the agent. Can also use: eval `ssh-agent`
+Agent pid 7882
+$ ssh-add
+# Add your key. This will default to adding ~/.ssh/id_rsa and ~/.ssh/id_dsa.
+Enter passphrase for ~/.ssh/id_rsa: ••••••••••••••••••
+Identity added: ~/.ssh/id_rsa (~/.ssh/id_rsa)
+$ ssh-add -l
+# (Optional:) Test that your key is unlocked in the agent.
+```
+
+Add both keys to pageant
+
+## Download respository
+
+```bash
+$ git clone git@github.com:abulgatz/cs499devbox.git
+$ cd cs499devbox
+```
+
+## Run dev box
+
+```bash
+$ vagrant up
+```
+
+## Configure SSH
+
+Your ssh keys are in openssh format, which PuTTY, the Windows SSH client that we will be using, can't read.
+
+To convert your keys to a format PuTTY can use:
+
+Download and install [PuTTY](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.63-installer.exe), which will include PuTTY, Pageant, and PuTTYgen.
+
+Convert ~/.ssh/id_rsa to
+Convert ~/.vagrant.d/ to
+
+## Start Rails Server
+
+rails s -b 0.0.0.0
+
+pageant
+puttygen
+putty
+
+ssh -T git@github.com
