@@ -162,9 +162,7 @@ $ vagrant up
 
 ## Configure SSH keys
 
-Your ssh keys are in openssh format, which PuTTY, the Windows SSH client that we will be using, can't read.
-
-To convert your keys to a format PuTTY can use:
+Your ssh keys are in openssh format, which PuTTY, the Windows SSH client that we will be using, can't read. We will use PuTTYgen to convert them to a format that putty can read.
 
 Download and install [PuTTY](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.63-installer.exe), which will include PuTTY, Pageant, and PuTTYgen.
 
