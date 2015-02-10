@@ -7,6 +7,8 @@ Vagrant.configure('2') do |config|
   config.vm.synced_folder './code', '/home/vagrant/code', nfs: true
 
   # config.ssh.private_key_path = [ '~/.vagrant.d/insecure_private_key', '~/.ssh/id_rsa' ]
+
+  config.ssh.insert_key = false # forces use of insecure default key in ~/vagrant.d/
   config.ssh.forward_agent = true
 
   config.berkshelf.enabled = true
