@@ -9,8 +9,6 @@ If you have a mac, first install homebrew, then
 
 If you have a Windows machine, download from [https://downloads.chef.io/chef-dk/](https://downloads.chef.io/chef-dk/)
 
-    $ vagrant plugin install vagrant-berkshelf
-
 ## Install Vagrant
 
 Install Vagrant from [vagrantup.com](http://vagrantup.com)
@@ -24,6 +22,11 @@ First, create a "home" folder in C:\HashiCorp\Vagrant, then in a command prompt 
 NOTE: This adds to the User Environment, if you want to add to the system/machine you need to add the /M option at the end of the command in an elevated command prompt, for example:
 
 	$ setx VAGRANT_HOME "C:\HashiCorp\Vagrant\home" /M
+
+## Install Vagrant plugins
+
+    $ vagrant plugin install vagrant-berkshelf
+    $ vagrant plugin install vagrant-omnibus
 
 ## Configure Git on Windows in Git Bash
 
@@ -68,6 +71,19 @@ Then add your new key to the ssh-agent:
 	# (Optional:) Test that your key is unlocked in the agent.
 
 Add both keys to pageant
+
+## Download respository
+
+    ```bash
+    $ git clone git@github.com:gofullstack/cocoon.git
+    $ cd cocoon
+    ```
+
+## Run dev box
+
+    ```bash
+    $ vagrant up
+    ```
 
 ## Other stuff
 
