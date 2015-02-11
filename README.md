@@ -147,6 +147,26 @@ If that username is yours, you've successfully set up your SSH key! Don't worry 
 
 If you receive a message about "access denied," you can [read these instructions for diagnosing the issue](https://help.github.com/articles/error-permission-denied-publickey).
 
+## Configure SSH keys
+
+Your ssh keys are in openssh format, which PuTTY, the Windows SSH client that we will be using, can't read. We will use PuTTYgen to convert them to a format that putty can read.
+
+Download and install [PuTTY](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.63-installer.exe), which will include PuTTY, Pageant, and PuTTYgen.
+
+### Convert SSH keys
+
+Open PuTTYgen
+
+Click "Load", change the filetype to "All Files" browse to `C:\username\.ssh\id_rsa`, and click "Open". Click "Save Private Key", and save into the same folder with the name `id_rsa.ppk`. Make sure you add the ".ppk" extension.
+
+Complete the same process with `C:\HashiCorp\Vagrant\home\insecure_private_key`, saving as `insecure_private_key.ppk`
+
+### Load SSH keys
+
+Open Pageant, then double click its icon in your dock. Click "Add Key", and then add both of the `.ppk` keys that you created.
+
+You will have to do this every time before you load your Vagrant virtual machine.
+
 ## Download devbox respository
 
 ```bash
@@ -160,15 +180,9 @@ $ cd cs499devbox
 $ vagrant up
 ```
 
-## Configure SSH keys
-
-Your ssh keys are in openssh format, which PuTTY, the Windows SSH client that we will be using, can't read. We will use PuTTYgen to convert them to a format that putty can read.
-
-Download and install [PuTTY](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.63-installer.exe), which will include PuTTY, Pageant, and PuTTYgen.
-
-Convert ~/.ssh/id_rsa to
-Convert ~/.vagrant.d/ to
-
 ## Start Rails Server
 
+```bash
+bundle install
 rails s -b 0.0.0.0
+```
