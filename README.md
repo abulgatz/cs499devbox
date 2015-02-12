@@ -163,9 +163,13 @@ Complete the same process with `C:\HashiCorp\Vagrant\home\insecure_private_key`,
 
 ### Load SSH keys
 
-Open Pageant, then double click its icon in your dock. Click "Add Key", and then add both of the `.ppk` keys that you created.
+Make a shortcut to Pageant on your desktop
 
-You will have to do this every time before you load your Vagrant virtual machine.
+Right click on the shortcut and click Properties. Go to the "Shortcut" tab add the following at the end of "Target" (make sure to add a space between the end of what is there and what you copy in):
+
+    "%HOMEPATH%\.ssh\id_rsa.ppk" "C:\HashiCorp\Vagrant\home\insecure_private_key.ppk"
+
+You can then copy this shortcut to your startup folder at `C:\Users\<User Profile folder name>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
 
 ## Download devbox respository
 
