@@ -1,10 +1,4 @@
 #
-# Cookbook Name:: cocoon
-# Recipe:: _ruby
-#
-#
-
-#
 # Clones the rails project
 #
 
@@ -16,7 +10,12 @@
 
 git "/home/vagrant/code/igp" do
 	repository "git@github.com:abulgatz/cs499igp.git"
-	reference "master"
+	# reference "master"
+	checkout_branch "development"
 	action :checkout
 	# user "vagrant"
+end
+
+execute 'cd /home/vagrant/code/igp && bundle install' do
+  not_if 'bundle check'
 end

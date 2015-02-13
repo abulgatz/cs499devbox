@@ -1,11 +1,4 @@
 #
-# Cookbook Name:: cocoon
-# Recipe:: _ruby
-#
-# Copyright (C) 2014 FullStack
-#
-
-#
 # Install Ruby Build Dependencies
 #
 package 'libxslt-dev'
@@ -17,20 +10,18 @@ package 'libsqlite3-dev'
 #
 # Add apt-add-repository.
 #
-package 'software-properties-common'
+# package 'software-properties-common'
 
 #
 # Add brightbox ruby repo.
 #
-execute 'apt-add-repository ppa:brightbox/ruby-ng -y' do
-  not_if 'which ruby | grep -c 2.1'
-end
+# execute 'apt-add-repository ppa:brightbox/ruby-ng -y' do
+#   not_if 'which ruby | grep -c 2.1'
+# end
 
-#
-# Update dependencies.
-#
-execute 'apt-get update' do
-  ignore_failure true
+apt_repository 'ruby-ng' do
+  uri          'ppa:brightbox/ruby-ng'
+  distribution node['lsb']['codename']
 end
 
 #
