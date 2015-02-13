@@ -11,7 +11,8 @@
 git "/home/vagrant/code/igp" do
 	repository "git@github.com:abulgatz/cs499igp.git"
 	# reference "master"
-	checkout_branch "development"
+	# checkout_branch "development"
+	enable_checkout false # don't create new branch on checkout
 	action :checkout
 	# user "vagrant"
 end

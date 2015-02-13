@@ -1,0 +1,4 @@
+#
+# Install Vim
+#
+package 'vim'
