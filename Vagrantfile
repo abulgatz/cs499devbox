@@ -6,6 +6,12 @@ Vagrant.configure('2') do |config|
   config.vm.network :forwarded_port, guest: 3000, host: 3000
   config.vm.synced_folder './code', '/home/vagrant/code', nfs: true
 
+  config.vm.provider "virtualbox" do |v|
+    v.name = "rails_vm"
+    v.memory = 1024
+    v.cpus = 2
+  end
+
   # config.ssh.private_key_path = [ '~/.vagrant.d/insecure_private_key', '~/.ssh/id_rsa' ]
 
   config.ssh.insert_key = false # false forces use of insecure default key in ~/vagrant.d/
