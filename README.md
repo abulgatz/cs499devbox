@@ -184,6 +184,20 @@ $ cd cs499devbox
 $ vagrant up
 ```
 
+## PuTTY Settings
+
+* Hostname: 127.0.0.1
+* Port: 2222
+* Connection > data > auto login name: vagrant
+* Session > Saved Sesstion: vagrant
+	* Click Save
+	
+In the future, select the saved "vagrant" under Saved sessions and click "Load"
+
+Click "Open" to open the connection
+
+
+
 ## Start Rails Server
 
 ```bash
