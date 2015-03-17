@@ -165,11 +165,11 @@ Complete the same process with `C:\HashiCorp\Vagrant\home\insecure_private_key`,
 
 Make a shortcut to Pageant on your desktop
 
-Right click on the shortcut and click Properties. Go to the "Shortcut" tab add the following at the end of "Target" (make sure to add a space between the end of what is there and what you copy in):
+Right click on the shortcut and click Properties. Go to the "Shortcut" tab and add the following at the end of "Target" (make sure to add a space between the end of what is there and what you paste in):
 
     "%HOMEPATH%\.ssh\id_rsa.ppk" "C:\HashiCorp\Vagrant\home\insecure_private_key.ppk"
 
-You can then copy this shortcut to your startup folder at `C:\Users\<User Profile folder name>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
+You can then copy this shortcut to your startup folder at `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup`
 
 ## Download devbox respository
 
