@@ -1,6 +1,7 @@
 Vagrant.configure('2') do |config|
-  config.vm.box = 'chef/ubuntu-14.04'
+  config.vm.box = 'bento/ubuntu-16.04'
   config.omnibus.chef_version = :latest
+
 
   config.vm.network :private_network, type: 'dhcp'
   config.vm.network :forwarded_port, guest: 3000, host: 3000
@@ -22,6 +23,9 @@ Vagrant.configure('2') do |config|
   config.vm.provision :chef_zero do |chef|
     chef.cookbooks_path = 'chef/cookbooks'
     chef.data_bags_path = 'chef/databags'
+    chef.nodes_path = 'chef/cookbooks'
+    chef.channel = 'stable'
+    chef.version = '12.10.24'
 
     chef.json = {
       "postgresql" => {

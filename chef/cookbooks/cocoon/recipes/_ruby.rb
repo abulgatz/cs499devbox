@@ -49,4 +49,5 @@ end
 #
 gem_package 'rails' do
   gem_binary('/usr/bin/gem2.1')
+  options '-v "4.2.0"'
 end

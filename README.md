@@ -201,6 +201,13 @@ Click "Open" to open the connection
 ## Start Rails Server
 
 ```bash
+cd /home/vagrant/code/igp
 bundle install
+bundle exec rake db:migrate
+bundle exec rake db:seed
 rails s -b 0.0.0.0
 ```
+
+Then visit [localhost:3000](http://localhost:3000)
+
+See admin user in code/igp/db/seeds.rb
